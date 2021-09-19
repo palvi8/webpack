@@ -1,10 +1,12 @@
 import './hello-world-button.scss';
 
 class HelloWorldButton {
+    helloWorldButton = 'hello-world-button';
+
     render(){
         const button = document.createElement('button');
         button.innerText = 'Hello World';
-        button.classList.add('hello-world-button');
+        button.classList.add(this.helloWorldButton);
         const body = document.querySelector('body');
 
         button.onclick = function() {
