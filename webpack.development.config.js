@@ -1,17 +1,15 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtratPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry : './src/index.js',
     output : {
-        filename: 'bundle.[contenthash].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, './dist'),
         publicPath: ''
     },
-    mode: 'none',
+    mode: 'development',
     module: {
         rules: [
             {
@@ -30,13 +28,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtratPlugin.loader, 'css-loader'
+                    'style-loader', 'css-loader'
                 ]
             },
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtratPlugin.loader, 'css-loader', 'sass-loader'
+                    'style-loader', 'css-loader', 'sass-loader'
                 ]
             },
             {
@@ -49,14 +47,16 @@ module.exports = {
                         plugins: ['@babel/plugin-proposal-class-properties']
                     }
                 }
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    'handlebars-loader'
+                ]
             }
         ]
     },
     plugins: [
-        new TerserPlugin(),
-        new MiniCssExtratPlugin({
-            filename: 'style.[contenthash].css'
-        }),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 '**/*',
@@ -64,10 +64,9 @@ module.exports = {
             ]
         }),
         new HtmlWebpackPlugin({
-            title: 'Hello World',
-            meta: {
-                description: 'Webpack 5'
-            }
+            title: 'Hello world',
+            template: 'src/index.hbs',
+            description: 'Webpack 5'
         })
     ]
 }
