@@ -1,9 +1,9 @@
-import HelloWorldButton from "./components/hello-world-button/hello-world-button";
-import Heading from "./components/heading/heading";
+import HelloWorldButton from "./components/hello-world-button/hello-world-button.js";
+import Heading from "./components/heading/heading.js";
 
 const heading = new Heading();
 const helloButton = new HelloWorldButton();
-heading.render();
+heading.render('hello world');
 helloButton.render();
 
 if(process.env.NODE_ENV === 'production'){
